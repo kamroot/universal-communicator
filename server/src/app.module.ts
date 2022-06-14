@@ -1,14 +1,15 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { ConfigModule } from '@nestjs/config';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
-import { PubsubGateway } from './pubsub.gateway';
-import { ChannelsModule } from './channels/channels.module';
+import { SignalwireController } from './signalwire/signalwire.controller';
+import { SignalwireService } from './signalwire/signalwire.service';
+import { ConfigModule } from '@nestjs/config';
+import { SignalwireModule } from './signalwire/signalwire.module';
+
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), UsersModule, ChannelsModule],
-  controllers: [AppController],
-  providers: [AppService, PubsubGateway],
+  imports: [ConfigModule.forRoot(), SignalwireModule],
+  controllers: [AppController, SignalwireController],
+  providers: [AppService, SignalwireService],
 })
 export class AppModule {}

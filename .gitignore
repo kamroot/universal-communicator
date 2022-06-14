@@ -26,3 +26,4 @@ ui/build
 ui/node_modules
 server/.env
 ui/.env
+.env
