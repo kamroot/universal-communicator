@@ -1,0 +1,27 @@
+{
+  "name": "universal-communicator",
+  "version": "1.0.0",
+  "description": "SignalWire demo app (not official) for all kinds of communication - voice, video etc.",
+  "main": "index.js",
+  "dependencies": {
+    "js-tokens": "^4.0.0",
+    "loose-envify": "^1.4.0",
+    "tslib": "^2.4.0",
+    "react": "^18.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "cd ui && npm run start & cd server && npm run start:dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamroot/universal-communicator.git"
+  },
+  "author": "Aseem Asthana",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kamroot/universal-communicator/issues"
+  },
+  "homepage": "https://github.com/kamroot/universal-communicator#readme"
+}
