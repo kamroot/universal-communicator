@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
 import Header from './components/Header';
-import Video from './components/Video';
 import { useNavigate } from 'react-router-dom';
 import { ClerkProvider, SignedIn, SignedOut, UserButton, useUser, RedirectToSignIn } from '@clerk/clerk-react';
+import { VideoConference } from '@signalwire-community/react';
 
 const frontendApi = process.env.REACT_APP_CLERK_FRONTEND_API;
-const SW_TOKEN = process.env.REACT_APP_SIGNALWIRE_TOKEN;
+const SW_TOKEN = process.env.REACT_APP_SIGNALWIRE_TOKEN ? process.env.REACT_APP_SIGNALWIRE_TOKEN : '';
 
 function App() {
   const navigate = useNavigate();
@@ -34,7 +34,13 @@ const MainPage = () => {
     <Header />
     <div id="main" className=" flex flex-row h-screen">
       <div id="main-container" className="bg-gray-200 w-4/5 px-4">
-        <Video user={name} token={SW_TOKEN} />
+        <VideoConference
+        token={SW_TOKEN}
+        userName={name}
+        memberList={true}
+        onRoomReady={(rs) => console.log("Room is ready!", rs)}
+      />
+
       </div>
 
       <div id="video-root" className="grow basis-1"></div>

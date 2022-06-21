@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@clerk/clerk-react": "^3.3.0",
+    "@signalwire-community/react": "^1.0.2",
     "@signalwire/app-kit": "^0.0.1-dev.202206012120.f3a6f08.4",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",

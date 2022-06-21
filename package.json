@@ -6,10 +6,9 @@
   "dependencies": {
     "js-tokens": "^4.0.0",
     "loose-envify": "^1.4.0",
-    "tslib": "^2.4.0",
-    "react": "^18.1.0"
+    "react": "^18.1.0",
+    "tslib": "^2.4.0"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "cd ui && npm run start & cd server && npm run start:dev",
     "build": "cd ui && npm install && cd ../server && npm install",
