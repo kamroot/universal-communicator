@@ -8,7 +8,7 @@ async function bootstrap() {
 
   const port = confService.get('SERVER_PORT', '0.0.0.0');
   console.log(`Server listening on port ${port}`);
-
+  app.enableCors();
   await app.listen(port);
 }
 bootstrap();
