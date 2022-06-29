@@ -1,6 +1,7 @@
 import { Injectable, HttpException } from '@nestjs/common';
 import fetch from 'node-fetch';
 import { ConfigService } from '@nestjs/config';
+import { HistoryLine } from 'src/history/history.entity';
 
 @Injectable()
 export class SignalwireService {
@@ -109,6 +110,30 @@ export class SignalwireService {
       if (roomName === 'Meeting Room') {
         resolve('vpt_a3f059fe11131ddd2f0e6917c43812ab');
       }
+    });
+  }
+
+  getHistory(type: 'video' | 'voice'): Promise<HistoryLine[]> {
+    return new Promise((resolve, reject) => {
+      const url = 'https://aseem.signalwire.com/api/video/logs';
+      const options = {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          Authorization: this.AUTH,
+          'Content-Type': 'application/json',
+        },
+      };
+      fetch(url, options)
+        .then((res) => res.json())
+        .then((json) => {
+          console.log(json);
+          resolve(json);
+        })
+        .catch((err) => {
+          reject(`Error: ${err}`);
+          console.error('Error:' + err);
+        });
     });
   }
 }
