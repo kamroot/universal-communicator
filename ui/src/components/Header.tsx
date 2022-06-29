@@ -9,8 +9,8 @@ const Header = () => {
         Welcome to SignalWire Programmable Video Conference
       </div>
       <div className="my-auto">
-       
-         <DropDownMenu />
+        <UserButton />
+        <DropDownMenu />
       </div>
     </div>
   );

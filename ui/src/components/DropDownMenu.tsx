@@ -8,7 +8,7 @@ function DropDownMenu() {
     <Menu>
       <Menu.Label>Application</Menu.Label>
       <Menu.Item icon={<Settings size={14} />}> <Link to="/history">History</Link></Menu.Item>
-      <Menu.Item icon={<MessageCircle size={14} />}> <UserButton /></Menu.Item>
+      {/* <Menu.Item icon={<MessageCircle size={14} />}> <UserButton /></Menu.Item> */}
       <Menu.Item icon={<Photo size={14} />}>Gallery</Menu.Item>
       <Menu.Item
         icon={<Search size={14} />}

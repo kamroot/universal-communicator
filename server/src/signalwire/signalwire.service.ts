@@ -51,6 +51,27 @@ export class SignalwireService {
           `Member left ${member.name} - ${roomSession.name} [${roomSession.id}]`,
         );
       });
+
+      roomSession.on('member.updated', async (member) => {
+        console.log(
+          `Member updated ${member.name} - ${roomSession.name} [${roomSession.id}]`,
+        );
+      });
+      roomSession.on('member.updated.meta', async (member) => {
+        console.log(
+          `Member updated meta ${member.name} - ${roomSession.name} [${roomSession.id}]`,
+        );
+      });
+      roomSession.on('member.updated.deaf', async (member) => {
+        console.log(
+          `Member updated name ${member.name} - ${roomSession.name} [${roomSession.id}]`,
+        );
+      });
+      roomSession.on('member.talking', async (member) => {
+        console.log(
+          `Member talking ${member.id}  - ${roomSession.name} [${roomSession.id}]`,
+        );
+      });
     });
   }
 
