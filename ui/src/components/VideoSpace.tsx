@@ -10,6 +10,7 @@ const VideoSpace = () => {
           // userName={visitorName}
           memberList={true}
           onRoomReady={(rs) => console.log('Room is ready!', rs)}
+          onMemberLeft={(member) => console.log('Member left!', member.member.name)}
         />
   )
 }

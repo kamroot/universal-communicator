@@ -25,6 +25,8 @@
     "@nestjs/config": "^2.1.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@signalwire/js": "^3.12.1",
+    "@signalwire/realtime-api": "^3.2.0",
     "node-fetch": "^2.6.7",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",

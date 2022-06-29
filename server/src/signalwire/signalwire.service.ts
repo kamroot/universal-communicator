@@ -2,7 +2,7 @@ import { Injectable, HttpException } from '@nestjs/common';
 import fetch from 'node-fetch';
 import { ConfigService } from '@nestjs/config';
 import { HistoryLine } from 'src/history/history.entity';
-
+import { Video } from '@signalwire/realtime-api';
 @Injectable()
 export class SignalwireService {
   private AUTH =
@@ -19,19 +19,39 @@ export class SignalwireService {
     const password = this.configService.get<string>('SIGNALWIRE_API_TOKEN');
     const auth =
       'Basic ' + Buffer.from(`${username}:${password}`).toString('base64');
-    console.log(`SignalWire Auth: ${auth}`);
 
     console.log(`SignalWire Auth: ${this.AUTH}`);
-    console.log(
-      `SignalWire SIGNALWIRE_API_TOKEN: ${this.configService.get<string>(
-        'SIGNALWIRE_API_TOKEN',
-      )}`,
-    );
-    console.log(
-      `SignalWire SIGNALWIRE_PROJECT_ID: ${this.configService.get<string>(
-        'SIGNALWIRE_PROJECT_ID',
-      )}`,
-    );
+    const video = new Video.Client({
+      project: this.configService.get<string>('SIGNALWIRE_PROJECT_ID'),
+      token: this.configService.get<string>('SIGNALWIRE_API_TOKEN'),
+    });
+
+    video.on('room.started', async (roomSession) => {
+      console.log(
+        `Room started name - ${roomSession.name}, display name - ${roomSession.displayName}, id - ${roomSession.id}, layoutName - ${roomSession.layoutName}, preview URL - ${roomSession.previewUrl}, roomID - ${roomSession.roomId}`,
+      );
+
+      roomSession.on(`member.joined`, async (member) => {
+        console.log(
+          `Member joined: ${member.name} [${member.id}] - room ${roomSession.name} [${roomSession.id}]`,
+        );
+      });
+      roomSession.on('room.ended', async (rs) => {
+        console.log(`Room finished ${roomSession.name} [${roomSession.id}]`);
+        console.log(roomSession);
+        console.log(rs);
+      });
+      roomSession.on('layout.changed', async (layout) => {
+        console.log(
+          `Layout changed ${layout.name} -  ${roomSession.name} [${roomSession.id}]`,
+        );
+      });
+      roomSession.on('member.left', async (member) => {
+        console.log(
+          `Member left ${member.name} - ${roomSession.name} [${roomSession.id}]`,
+        );
+      });
+    });
   }
 
   getRooms(): Promise<any> {
