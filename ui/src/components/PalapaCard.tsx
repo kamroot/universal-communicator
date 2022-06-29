@@ -2,7 +2,9 @@ import { Button } from '@mantine/core';
 import { VideoConference } from '@signalwire-community/react';
 // import { Button } from '@mantine/core';
 import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { CalendarEvent, FilePhone, Armchair } from 'tabler-icons-react';
+import VideoSpace from './VideoSpace';
 
 export type PalapaInterface = {
   name: string;
@@ -12,8 +14,8 @@ export type PalapaInterface = {
   palapaType: 'event room' | 'phone booth' | 'meeting room';
 };
 
-const Palapa = ({ name, visitorName, description, currentMemberCount, palapaType }: PalapaInterface) => {
-  const [videoEnabled, setVideoEnabled] = useState(false);
+const PalapaCard = ({ name, visitorName, description, currentMemberCount, palapaType }: PalapaInterface) => {
+  const navigate = useNavigate();
   const [token, setToken] = useState('');
 
   const getPalapalToken = async () => {
@@ -43,18 +45,15 @@ const Palapa = ({ name, visitorName, description, currentMemberCount, palapaType
     } catch (error) {
       console.log('error in getting Token', error);
     }
-    // console.log('done with getToken');
   };
 
   useEffect(() => {
-    // console.log('useEffect');
     getPalapalToken();
   }, []);
 
 
   const clickHandler = (event: any) => {
-    // console.log(event);
-    setVideoEnabled(!videoEnabled);
+    navigate(`/video/${token}`);
   };
 
 
@@ -76,20 +75,10 @@ const Palapa = ({ name, visitorName, description, currentMemberCount, palapaType
           Click me
         </Button>
       </div>
-
-      {videoEnabled && token && (
-        <VideoConference
-          token={token}
-          userName={name}
-          memberList={true}
-          onRoomReady={(rs) => console.log('Room is ready!', rs)}
-        />
-      )}
-      {videoEnabled && !token && (<div> No token - {token} </div>)}
     </>
   );
 };
 
-export default Palapa;
+export default PalapaCard;
 
 

@@ -6,6 +6,7 @@ import { ClerkProvider, SignedIn, SignedOut, UserButton, useUser, RedirectToSign
 import '@shoelace-style/shoelace/dist/themes/light.css';
 import MainPage from './pages/MainPage';
 import History from './pages/History';
+import VideoSpace from './components/VideoSpace';
 
 const frontendApi = process.env.REACT_APP_CLERK_FRONTEND_API;
 
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/history" element={<History />} />
+          <Route path="/video/:token" element={<VideoSpace />} />
         </Routes>
 
       </SignedIn>

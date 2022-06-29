@@ -1,4 +1,4 @@
-import Palapa, { PalapaInterface } from './Palapa';
+import PalapaCard, { PalapaInterface } from './PalapaCard';
 import { useEffect, useState } from 'react';
 
 type PalapaListInterface = {
@@ -48,7 +48,7 @@ export const PalapaList = ({ visitorName }: PalapaListInterface) => {
       <h1> List of Palapas </h1>
 
       {palapaList.map((palapaDetails) => (
-        <Palapa
+        <PalapaCard
           name={palapaDetails.name}
           description={palapaDetails.description}
           currentMemberCount={palapaDetails.currentMemberCount}

@@ -138,10 +138,10 @@ export class SignalwireService {
                 h.type,
                 h.room_name,
                 h.status,
-                h.started_at,
-                h.ended_at,
+                new Date(h.started_at),
+                new Date(h.ended_at),
                 h.charge,
-                h.created_at,
+                new Date(h.created_at),
               ),
             );
           }
