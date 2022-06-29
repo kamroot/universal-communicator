@@ -1,5 +1,4 @@
-import react from 'react';
-import { UserButton } from "@clerk/clerk-react";
+import { UserButton } from '@clerk/clerk-react';
 import DropDownMenu from './DropDownMenu';
 
 const Header = () => {
@@ -14,6 +13,5 @@ const Header = () => {
       </div>
     </div>
   );
-
 };
 export default Header;
