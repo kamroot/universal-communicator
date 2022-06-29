@@ -127,8 +127,25 @@ export class SignalwireService {
       fetch(url, options)
         .then((res) => res.json())
         .then((json) => {
-          console.log(json);
-          resolve(json);
+          const history: HistoryLine[] = [];
+
+          // console.log(json);
+          for (const h of json.data) {
+            history.push(
+              new HistoryLine(
+                h.id,
+                h.source,
+                h.type,
+                h.room_name,
+                h.status,
+                h.started_at,
+                h.ended_at,
+                h.charge,
+                h.created_at,
+              ),
+            );
+          }
+          resolve(history);
         })
         .catch((err) => {
           reject(`Error: ${err}`);
