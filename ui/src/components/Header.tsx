@@ -1,6 +1,6 @@
 import react from 'react';
 import { UserButton } from "@clerk/clerk-react";
-import Demo from './Menu';
+import DropDownMenu from './DropDownMenu';
 
 const Header = () => {
   return (
@@ -9,8 +9,8 @@ const Header = () => {
         Welcome to SignalWire Programmable Video Conference
       </div>
       <div className="my-auto">
-        <UserButton />
-        {/* <Demo /> */}
+       
+         <DropDownMenu />
       </div>
     </div>
   );

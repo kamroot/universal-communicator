@@ -2,11 +2,10 @@ import Palapa, { PalapaInterface } from './Palapa';
 import { useEffect, useState } from 'react';
 
 type PalapaListInterface = {
-  name: string;
-  token: string;
+  visitorName: string;
 };
 
-export const PalapaList = ({ name, token }: PalapaListInterface) => {
+export const PalapaList = ({ visitorName }: PalapaListInterface) => {
   const initList: PalapaInterface[] = [];
 
   const [palapaList, setPalapaList] = useState(initList);
@@ -53,7 +52,7 @@ export const PalapaList = ({ name, token }: PalapaListInterface) => {
           name={palapaDetails.name}
           description={palapaDetails.description}
           currentMemberCount={palapaDetails.currentMemberCount}
-          visitorName="aseem asthana"
+          visitorName={visitorName}
           palapaType={palapaDetails.palapaType}
         />
       ))}

@@ -1,12 +1,14 @@
+import { UserButton } from '@clerk/clerk-react';
 import { Menu, Divider, Text } from '@mantine/core';
+import { Link } from 'react-router-dom';
 import { Settings, Search, Photo, MessageCircle, Trash, ArrowsLeftRight } from 'tabler-icons-react';
 
-function Demo() {
+function DropDownMenu() {
   return (
     <Menu>
       <Menu.Label>Application</Menu.Label>
-      <Menu.Item icon={<Settings size={14} />}>Settings</Menu.Item>
-      <Menu.Item icon={<MessageCircle size={14} />}>Messages</Menu.Item>
+      <Menu.Item icon={<Settings size={14} />}> <Link to="/history">History</Link></Menu.Item>
+      <Menu.Item icon={<MessageCircle size={14} />}> <UserButton /></Menu.Item>
       <Menu.Item icon={<Photo size={14} />}>Gallery</Menu.Item>
       <Menu.Item
         icon={<Search size={14} />}
@@ -24,4 +26,4 @@ function Demo() {
   );
 }
 
-export default Demo;
+export default DropDownMenu;

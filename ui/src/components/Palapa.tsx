@@ -1,5 +1,6 @@
+import { Button } from '@mantine/core';
 import { VideoConference } from '@signalwire-community/react';
-import { SlButton } from '@shoelace-style/shoelace/dist/react';
+// import { Button } from '@mantine/core';
 import { useState, useEffect } from 'react';
 import { CalendarEvent, FilePhone, Armchair } from 'tabler-icons-react';
 
@@ -10,8 +11,6 @@ export type PalapaInterface = {
   visitorName: string;
   palapaType: 'event room' | 'phone booth' | 'meeting room';
 };
-
-
 
 const Palapa = ({ name, visitorName, description, currentMemberCount, palapaType }: PalapaInterface) => {
   const [videoEnabled, setVideoEnabled] = useState(false);
@@ -73,9 +72,9 @@ const Palapa = ({ name, visitorName, description, currentMemberCount, palapaType
         </div>
         <div> {description} </div>
 
-        <SlButton variant="primary" onClick={clickHandler}>
+        <Button onClick={clickHandler}>
           Click me
-        </SlButton>
+        </Button>
       </div>
 
       {videoEnabled && token && (
