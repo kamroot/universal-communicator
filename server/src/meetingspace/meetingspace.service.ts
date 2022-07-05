@@ -6,7 +6,7 @@ import { MeetingspaceEntity } from './meetingspace.entity';
 export class MeetingspaceService {
   constructor(private signalWireService: SignalwireService) {}
 
-  async getPalapas(): Promise<MeetingspaceEntity[]> {
+  async getMeetingspaces(): Promise<MeetingspaceEntity[]> {
     const meetingspaces: MeetingspaceEntity[] = [];
 
     const rooms = await this.signalWireService.getRooms();
@@ -20,6 +20,8 @@ export class MeetingspaceService {
         room.display_name,
         room.id,
         room.display_name,
+        room.created_at,
+        room.updated_at,
       );
       meetingspaces.push(p);
     }

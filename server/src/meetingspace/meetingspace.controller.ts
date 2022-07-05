@@ -10,7 +10,7 @@ export class MeetingspaceController {
   @Get()
   async getRooms() {
     const rooms: MeetingspaceEntity[] =
-      await this.meetingspaceService.getPalapas();
+      await this.meetingspaceService.getMeetingspaces();
     return rooms;
   }
 
