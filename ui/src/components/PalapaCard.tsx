@@ -19,8 +19,7 @@ const PalapaCard = ({ name, visitorName, description, currentMemberCount, palapa
   const [token, setToken] = useState('');
 
   const getPalapalToken = async () => {
-
-    const url = 'http://localhost:4500/palapas/token';
+    const url = `${process.env.REACT_APP_SERVER_URL}/palapas/token`;
     const options = {
       method: 'POST',
       headers: {
@@ -51,34 +50,22 @@ const PalapaCard = ({ name, visitorName, description, currentMemberCount, palapa
     getPalapalToken();
   }, []);
 
-
   const clickHandler = (event: any) => {
     navigate(`/video/${token}`);
   };
 
-
   return (
     <>
-      <div className='bg-teal-50 my-8 w-1/2 mx-auto rounded-md  h-48'>
-
-        <div className="h-10 bg-zinc-50 grid grid-cols-10 py-auto">
-          <div className="col-span-2 bg-zinc-200 rounded-sm">
-            {palapaType === 'event room' && <CalendarEvent className="h-8 w-8" />}
-            {palapaType === 'phone booth' && <FilePhone className="h-8 w-8" />}
-            {palapaType === 'meeting room' && <Armchair className="h-8 w-8" />}
-          </div>
-          <div className="col-span-7"> {name} / {currentMemberCount} members </div>
+      <div className="my-8 bg-black mx-auto rounded-md  h-48 w-64 hover:bg-slate-800" onClick={clickHandler}>
+        <div className="bg-red-800 h-8 px-2 rounded-tl-md rounded-tr-md text-white font-sans font-semibold">{name}</div>
+        <div>
+          <span className="text-white">
+            {description} with {currentMemberCount} people in it
+          </span>
         </div>
-        <div> {description} </div>
-
-        <Button onClick={clickHandler}>
-          Click me
-        </Button>
       </div>
     </>
   );
 };
 
 export default PalapaCard;
-
-

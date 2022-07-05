@@ -3,7 +3,7 @@ import { IsNotEmpty, IsString } from 'class-validator';
 export class GetTicketDTO {
   @IsString()
   @IsNotEmpty()
-  palapaName: string;
+  meetingspaceName: string;
 
   @IsString()
   @IsNotEmpty()

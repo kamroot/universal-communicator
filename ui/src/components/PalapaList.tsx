@@ -13,7 +13,7 @@ export const PalapaList = ({ visitorName }: PalapaListInterface) => {
 
   const getPalaList = async () => {
     //  console.log('getPalaList');
-    const url = 'http://localhost:4500/palapas/';
+    const url = `${process.env.REACT_APP_SERVER_URL}/palapas/`;
     const options = {
       method: 'GET',
       // mode: 'cors',
@@ -47,15 +47,17 @@ export const PalapaList = ({ visitorName }: PalapaListInterface) => {
     <div>
       <h1> List of Palapas </h1>
 
-      {palapaList.map((palapaDetails) => (
-        <PalapaCard
-          name={palapaDetails.name}
-          description={palapaDetails.description}
-          currentMemberCount={palapaDetails.currentMemberCount}
-          visitorName={visitorName}
-          palapaType={palapaDetails.palapaType}
-        />
-      ))}
+      <div className="flex flex-wrap">
+        {palapaList.map((palapaDetails) => (
+          <PalapaCard
+            name={palapaDetails.name}
+            description={palapaDetails.description}
+            currentMemberCount={palapaDetails.currentMemberCount}
+            visitorName={visitorName}
+            palapaType={palapaDetails.palapaType}
+          />
+        ))}
+      </div>
     </div>
   );
 };

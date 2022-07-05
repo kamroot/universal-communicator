@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { SignalwireService } from '../signalwire/signalwire.service';
-import { Palapa } from './palapa.entity';
+import { MeetingspaceEntity } from './meetingspace.entity';
 
 @Injectable()
-export class PalapasService {
+export class MeetingspaceService {
   constructor(private signalWireService: SignalwireService) {}
 
-  async getPalapas(): Promise<Palapa[]> {
-    const palapas: Palapa[] = [];
+  async getPalapas(): Promise<MeetingspaceEntity[]> {
+    const meetingspaces: MeetingspaceEntity[] = [];
 
     const rooms = await this.signalWireService.getRooms();
     for (const room of rooms.data) {
@@ -16,14 +16,21 @@ export class PalapasService {
 
       // lets get a list of pre existing `conferences`. In SignalWire
       // conferences are different from rooms. Conferenes are rooms that have UI
-      const p = new Palapa(room.display_name, room.id, room.display_name);
-      palapas.push(p);
+      const p = new MeetingspaceEntity(
+        room.display_name,
+        room.id,
+        room.display_name,
+      );
+      meetingspaces.push(p);
     }
-    return Promise.resolve(palapas);
+    return Promise.resolve(meetingspaces);
   }
 
-  async getTicket(palapaName, visitorName): Promise<string> {
-    const ticket = this.signalWireService.getToken(palapaName, visitorName);
+  async getTicket(meetingspaceName, visitorName): Promise<string> {
+    const ticket = this.signalWireService.getToken(
+      meetingspaceName,
+      visitorName,
+    );
     return Promise.resolve(ticket);
   }
 }

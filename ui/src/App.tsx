@@ -10,29 +10,26 @@ import VideoSpace from './components/VideoSpace';
 
 const frontendApi = process.env.REACT_APP_CLERK_FRONTEND_API;
 
-
 function App() {
-
   const navigate = useNavigate();
   return (
-
     <ClerkProvider frontendApi={frontendApi} navigate={(to) => navigate(to)}>
       <SignedIn>
-        <Header />
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/history" element={<History />} />
-          <Route path="/video/:token" element={<VideoSpace />} />
-        </Routes>
-
+        <div className="h-screen">
+          <Header />
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/video/:token" element={<VideoSpace />} />
+          </Routes>
+          <Header />
+        </div>
       </SignedIn>
       <SignedOut>
         <RedirectToSignIn />
       </SignedOut>
     </ClerkProvider>
-
   );
 }
-
 
 export default App;
