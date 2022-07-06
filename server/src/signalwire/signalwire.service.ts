@@ -1,7 +1,10 @@
 import { Injectable, HttpException } from '@nestjs/common';
 import fetch from 'node-fetch';
 import { ConfigService } from '@nestjs/config';
-import { HistoryLine } from 'src/history/history.entity';
+import {
+  VideoHistoryEntity,
+  VoiceHistoryEntity,
+} from 'src/history/history.entity';
 import { Video } from '@signalwire/realtime-api';
 @Injectable()
 export class SignalwireService {
@@ -154,9 +157,9 @@ export class SignalwireService {
     });
   }
 
-  getHistory(type: 'video' | 'voice'): Promise<HistoryLine[]> {
+  getHistory(type: 'video' | 'voice' | 'messaging'): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      const url = 'https://aseem.signalwire.com/api/video/logs';
+      const url = `https://aseem.signalwire.com/api/${type}/logs`;
       const options = {
         method: 'GET',
         headers: {
@@ -168,23 +171,49 @@ export class SignalwireService {
       fetch(url, options)
         .then((res) => res.json())
         .then((json) => {
-          const history: HistoryLine[] = [];
+          const history: any[] = [];
 
           // console.log(json);
           for (const h of json.data) {
-            history.push(
-              new HistoryLine(
+            if (type === 'video') {
+              new VideoHistoryEntity(
                 h.id,
-                h.source,
-                h.type,
                 h.room_name,
+                h.user_name,
+                h.start_time,
+                h.end_time,
+                h.duration,
+                h.type,
                 h.status,
-                new Date(h.started_at),
-                new Date(h.ended_at),
-                h.charge,
-                new Date(h.created_at),
-              ),
-            );
+                h.created_at,
+              );
+            } else {
+              new VoiceHistoryEntity(
+                h.id,
+                h.room_name,
+                h.user_name,
+                h.start_time,
+                h.end_time,
+                h.duration,
+                h.type,
+                h.status,
+                h.created_at,
+              );
+            }
+
+            // new HistoryLine(
+            //   h.id,
+            //   h.source,
+            //   h.type,
+            //   h.room_name,
+            //   h.status,
+            //   new Date(h.started_at),
+            //   new Date(h.ended_at),
+            //   h.charge,
+            //   new Date(h.created_at),
+            // ),
+
+            history.push(h);
           }
           resolve(history);
         })
