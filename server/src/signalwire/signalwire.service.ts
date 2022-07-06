@@ -157,7 +157,7 @@ export class SignalwireService {
     });
   }
 
-  getHistory(type: 'video' | 'voice' | 'messaging'): Promise<any[]> {
+  getHistory(type: 'video' | 'voice' | 'messaging' | 'fax'): Promise<any[]> {
     return new Promise((resolve, reject) => {
       const url = `https://aseem.signalwire.com/api/${type}/logs`;
       const options = {

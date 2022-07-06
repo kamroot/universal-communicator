@@ -3,6 +3,7 @@ import {
   VideoHistoryEntity,
   VoiceHistoryEntity,
   MessageHistoryEntity,
+  FaxHistoryEntity,
 } from 'src/history/history.entity';
 import { HistoryService } from 'src/history/history.service';
 
@@ -33,6 +34,13 @@ export class HistoryController {
       0,
     );
 
+    const faxHistory: FaxHistoryEntity[] =
+      await this.historyService.getFaxHistory();
+    const faxCallCharge = faxHistory.reduce(
+      (prevVal, currentHistoryItem) => prevVal + currentHistoryItem.charge,
+      0,
+    );
+
     return {
       summary: {
         video: {
@@ -47,10 +55,15 @@ export class HistoryController {
           calls: messageHistory.length,
           totalCharge: messageCallCharge,
         },
+        fax: {
+          calls: faxHistory.length,
+          totalCharge: faxCallCharge,
+        },
       },
       video: videoHistory,
       voice: voiceHistory,
       messaging: messageHistory,
+      fax: faxHistory,
     };
   }
 }

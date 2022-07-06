@@ -3,6 +3,7 @@ import {
   VideoHistoryEntity,
   VoiceHistoryEntity,
   MessageHistoryEntity,
+  FaxHistoryEntity,
 } from 'src/history/history.entity';
 import { SignalwireService } from 'src/signalwire/signalwire.service';
 
@@ -20,5 +21,9 @@ export class HistoryService {
 
   async getMessageHistory(): Promise<MessageHistoryEntity[]> {
     return this.signalWireService.getHistory('messaging');
+  }
+
+  async getFaxHistory(): Promise<FaxHistoryEntity[]> {
+    return this.signalWireService.getHistory('fax');
   }
 }
