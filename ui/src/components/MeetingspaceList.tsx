@@ -26,11 +26,16 @@ export const MeetingspaceList = ({ visitorName }: MeetingspaceListInterface) => 
     try {
       const response = await fetch(url, options);
       // console.log('response list ', response);
+      if (response.status != 200) {
+        throw new Error(
+          `Failed to get meetingspace list. URL ${url} with status ${response.status} and text ${response.statusText}`,
+        );
+      }
 
       const json = await response.json();
       console.log('meetingspaceList', json);
       setMeetingspaceList(json);
-      // console.log('after', palapaList);
+      console.log('after', json);
       //  palapaList.push(...data);
     } catch (error) {
       console.log('error in getting meetingspaceList', error);

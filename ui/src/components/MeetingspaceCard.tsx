@@ -41,7 +41,11 @@ const MeetingspaceCard = ({
 
     try {
       const response = await fetch(url, options);
-      // console.log('response token ', response);
+      if (response.status != 200) {
+        throw new Error(
+          `Failed to join meetingspace ${name}. URL ${url} with status ${response.status} and text ${response.statusText}`,
+        );
+      }
       const json = await response.text();
       console.log(`Token for ${name} is `, json);
       setToken(json);
