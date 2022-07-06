@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { Photo, MessageCircle, Settings } from 'tabler-icons-react';
 import DataTable from 'react-data-table-component';
 
+const ExpandedComponent = ({ data }) => <pre>{JSON.stringify(data, null, 2)}</pre>;
+
 const History = () => {
   type HistoryInterface = {
     summary: any;
@@ -52,21 +54,40 @@ const History = () => {
 
   const columns = [
     {
-      name: 'Title',
-      selector: (row) => row.room_name,
-      sortable: true,
-    },
-    {
       name: 'ID',
       selector: (row) => row.id,
       sortable: false,
+      maxWidth: '350px',
+    },
+    {
+      name: 'Created At',
+      selector: (row) => row.created_at,
+      sortable: true,
+      maxWidth: '200px',
+      format: (row, index) => new Date(row.created_at).toLocaleString(),
+    },
+    {
+      name: 'Title',
+      selector: (row) => row.room_name,
+      sortable: true,
+      maxWidth: '350px',
     },
   ];
 
   return (
     <div>
       <h1> History </h1>
-      {history ? <DataTable columns={columns} data={history.video} /> : <div>no history found</div>}
+      {history ? (
+        <DataTable
+          columns={columns}
+          data={history.video}
+          expandableRowsComponent={ExpandedComponent}
+          pagination
+          dense
+        />
+      ) : (
+        <div>no history found</div>
+      )}
     </div>
   );
 };
