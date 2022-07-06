@@ -30,7 +30,6 @@ const MeetingspaceCard = ({
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        //Authorization: auth,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -49,8 +48,6 @@ const MeetingspaceCard = ({
       const json = await response.text();
       console.log(`Token for ${name} is `, json);
       setToken(json);
-      //console.log('after', palapaList);
-      //  palapaList.push(...data);
     } catch (error) {
       console.log('error in getting Token', error);
     }
