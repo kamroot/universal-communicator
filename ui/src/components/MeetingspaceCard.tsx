@@ -6,20 +6,26 @@ import { Link, useNavigate } from 'react-router-dom';
 import { CalendarEvent, FilePhone, Armchair } from 'tabler-icons-react';
 import VideoSpace from './VideoSpace';
 
-export type PalapaInterface = {
+export type MeetingspaceInterface = {
   name: string;
   currentMemberCount?: number;
   description: string;
   visitorName: string;
-  palapaType: 'event room' | 'phone booth' | 'meeting room';
+  meetingspaceType: 'event room' | 'phone booth' | 'meeting room';
 };
 
-const PalapaCard = ({ name, visitorName, description, currentMemberCount, palapaType }: PalapaInterface) => {
+const MeetingspaceCard = ({
+  name,
+  visitorName,
+  description,
+  currentMemberCount,
+  meetingspaceType: meetingspaceType,
+}: MeetingspaceInterface) => {
   const navigate = useNavigate();
   const [token, setToken] = useState('');
 
-  const getPalapalToken = async () => {
-    const url = `${process.env.REACT_APP_SERVER_URL}/palapas/token`;
+  const getMeetingspaceToken = async () => {
+    const url = `${process.env.REACT_APP_SERVER_URL}/meetingspace/token`;
     const options = {
       method: 'POST',
       headers: {
@@ -28,7 +34,7 @@ const PalapaCard = ({ name, visitorName, description, currentMemberCount, palapa
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        palapaName: name,
+        meetingspaceName: name,
         visitorName: visitorName,
       }),
     };
@@ -47,7 +53,7 @@ const PalapaCard = ({ name, visitorName, description, currentMemberCount, palapa
   };
 
   useEffect(() => {
-    getPalapalToken();
+    getMeetingspaceToken();
   }, []);
 
   const clickHandler = (event: any) => {
@@ -68,4 +74,4 @@ const PalapaCard = ({ name, visitorName, description, currentMemberCount, palapa
   );
 };
 
-export default PalapaCard;
+export default MeetingspaceCard;

@@ -1,4 +1,4 @@
-import { PalapaList } from '../components/PalapaList';
+import { MeetingspaceList } from '../components/MeetingspaceList';
 import { useUser } from '@clerk/clerk-react';
 
 const MainPage = () => {
@@ -8,7 +8,7 @@ const MainPage = () => {
 
   return (
     <div id="main-container" className="bg-gray-200 h-full px-4">
-      <PalapaList visitorName={visitorName} />
+      <MeetingspaceList visitorName={visitorName} />
     </div>
   );
 };
