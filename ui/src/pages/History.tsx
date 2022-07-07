@@ -67,10 +67,30 @@ const History = () => {
       format: (row, index) => new Date(row.created_at).toLocaleString(),
     },
     {
+      name: 'Ended At',
+      selector: (row) => row.ended_at,
+      sortable: true,
+      maxWidth: '200px',
+      format: (row, index) => new Date(row.ended_at).toLocaleString(),
+    },
+    {
+      name: 'Duration',
+      selector: (row) => (Date.parse(row.ended_at) - Date.parse(row.created_at)) / 1000 + ' seconds',
+      sortable: true,
+      maxWidth: '200px',
+      // format: (row, index) => 5,
+    },
+    {
       name: 'Title',
       selector: (row) => row.room_name,
       sortable: true,
       maxWidth: '350px',
+    },
+    {
+      name: 'Charge',
+      selector: (row) => row.charge,
+      sortable: true,
+      maxWidth: '200px',
     },
   ];
 
