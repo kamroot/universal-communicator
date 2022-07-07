@@ -6,6 +6,7 @@ import {
   VoiceHistoryEntity,
 } from 'src/history/history.entity';
 import { Video } from '@signalwire/realtime-api';
+import { LoggerService } from 'src/logger/logger.service';
 @Injectable()
 export class SignalwireService {
   private AUTH =
@@ -16,62 +17,62 @@ export class SignalwireService {
       )}:${this.configService.get<string>('SIGNALWIRE_API_TOKEN')}`,
     ).toString('base64');
 
+  private readonly logger = new LoggerService('SignalwireService');
+
   constructor(private configService: ConfigService) {
-    const username = this.configService.get<string>('SIGNALWIRE_PROJECT_ID');
+    // this.logger.setContext('SignalwireService');
 
-    const password = this.configService.get<string>('SIGNALWIRE_API_TOKEN');
-    const auth =
-      'Basic ' + Buffer.from(`${username}:${password}`).toString('base64');
-
-    console.log(`SignalWire Auth: ${this.AUTH}`);
+    this.logger.debug(`SignalWire Auth: ${this.AUTH}`);
     const video = new Video.Client({
       project: this.configService.get<string>('SIGNALWIRE_PROJECT_ID'),
       token: this.configService.get<string>('SIGNALWIRE_API_TOKEN'),
     });
 
     video.on('room.started', async (roomSession) => {
-      console.log(
+      this.logger.debug(
         `Room started name - ${roomSession.name}, display name - ${roomSession.displayName}, id - ${roomSession.id}, layoutName - ${roomSession.layoutName}, preview URL - ${roomSession.previewUrl}, roomID - ${roomSession.roomId}`,
       );
 
       roomSession.on(`member.joined`, async (member) => {
-        console.log(
+        this.logger.debug(
           `Member joined: ${member.name} [${member.id}] - room ${roomSession.name} [${roomSession.id}]`,
         );
       });
       roomSession.on('room.ended', async (rs) => {
-        console.log(`Room finished ${roomSession.name} [${roomSession.id}]`);
-        console.log(roomSession);
-        console.log(rs);
+        this.logger.debug(
+          `Room finished ${roomSession.name} [${roomSession.id}]`,
+        );
+        this.logger.debug(roomSession);
+        this.logger.debug(rs);
       });
       roomSession.on('layout.changed', async (layout) => {
-        console.log(
+        this.logger.debug(
           `Layout changed ${layout.name} -  ${roomSession.name} [${roomSession.id}]`,
         );
       });
       roomSession.on('member.left', async (member) => {
-        console.log(
+        this.logger.debug(
           `Member left ${member.name} - ${roomSession.name} [${roomSession.id}]`,
         );
       });
 
       roomSession.on('member.updated', async (member) => {
-        console.log(
+        this.logger.debug(
           `Member updated ${member.name} - ${roomSession.name} [${roomSession.id}]`,
         );
       });
       roomSession.on('member.updated.meta', async (member) => {
-        console.log(
+        this.logger.debug(
           `Member updated meta ${member.name} - ${roomSession.name} [${roomSession.id}]`,
         );
       });
       roomSession.on('member.updated.deaf', async (member) => {
-        console.log(
+        this.logger.debug(
           `Member updated name ${member.name} - ${roomSession.name} [${roomSession.id}]`,
         );
       });
       roomSession.on('member.talking', async (member) => {
-        console.log(
+        this.logger.debug(
           `Member talking ${member.id}  - ${roomSession.name} [${roomSession.id}]`,
         );
       });
